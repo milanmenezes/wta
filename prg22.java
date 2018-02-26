@@ -4,6 +4,9 @@ class A extends Thread{
 public void run(){
 	Thread t = Thread.currentThread();
 	System.out.println("In thread"+t.getId());
+	for(int i=0;i<100;i++){
+        System.out.println("In thread: "+t.getId()+" loop iteration "+i);
+    }
     try{
     t.sleep(5000);
 }
