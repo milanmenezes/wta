@@ -4,6 +4,9 @@ class A extends Thread{
 public void run(){
 	Thread t = Thread.currentThread();
 	System.out.println("In thread"+t.getId());
+    for(int i=0;i<100;i++){
+        System.out.println("In thread: "+t.getId()+" loop iteration "+i);
+    }
     try{
     t.sleep(5000);
 }
@@ -25,19 +28,21 @@ class prg21 {
     t1.start();
     t2.start();
  	t1.yield();
- 	t2.stop();
+     try{
+    t1.join();
+    
+}
+
+catch(Exception e){}
+    t2.stop();
+ 	
 
  	
 
     if(t1.isAlive())
     	System.out.println("T1 alive");
 
- try{
-    t1.join();
-    
-}
 
-catch(Exception e){}
 
     if(t2.isAlive())
     	System.out.println("T2 alive");
