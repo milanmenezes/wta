@@ -1,10 +1,13 @@
 import java.lang.*;
 import java.util.*;
-class A extends Thread{
+class A implements Runnable{
+
 public void run(){
+		
+
 	Thread t = Thread.currentThread();
 	System.out.println("In thread"+t.getId());
-	for(int i=0;i<100;i++){
+	for(int i=0;i<1000;i++){
         System.out.println("In thread: "+t.getId()+" loop iteration "+i);
     }
     try{
@@ -17,8 +20,11 @@ catch (Exception e)
 
 class prg22 {
 	public static void main(String args[]){
-    A t1= new A();
-    A t2= new A();
+    A a1= new A();
+    A a2= new A();
+    Thread t1 = new Thread(a1);
+    Thread t2 = new Thread(a2);
+
     if(t1.isAlive())
     	System.out.println("T1 alive");
 
