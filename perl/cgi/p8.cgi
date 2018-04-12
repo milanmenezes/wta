@@ -16,7 +16,20 @@ my $dbh = DBI->connect('DBI:mysql:csb3','viics57','viics57') or die("cannot conn
 my $sth = $dbh->prepare("insert into student_milan values('$usn','$name','$branch',$marks)") or die('can not prepare').$dbh->errstr();
 $sth->execute() or die('can not execute').$sth->errstr();
 $sth->finish();
-$dbh->disconnect();
+
+my $sth1 = $dbh->prepare('select * from student_milan') or die('can not prepare').$dbh->errstr();
+$sth1->execute() or die('can not execute').$sth->errstr();
+my($usn,$name,$branch,$marks);
 print
-p("Data entry successful"),
+start_html(-title=>'form-handle'),
+'<table border="2px solid black"><tr><th>USN</th><th>Name</th><th>Branch</th><th>marks</th>';
+
+while(($usn,$name,$branch,$marks)= $sth1->fetchrow())
+{
+	print "<tr><td> $usn </td><td> $name </td><td> $branch </td><td> $marks </td></tr>";
+	# p("$usn  $name  $branch  $marks");
+}
+print
 end_html();
+$sth1	->finish();
+$dbh->disconnect();
